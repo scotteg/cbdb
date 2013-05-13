@@ -15,6 +15,12 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
+    <?php
+    Yii::app()->clientScript->registerCoreScript('jquery');
+    Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/js/detectmobilebrowser.js');
+    Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/js/url_param_proc.js');
+    ?>
+    
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
@@ -28,22 +34,29 @@
 
 	<div id="mainmenu">
         <?php
+        Yii::app()->clientScript->registerScript('detectmobilebrowser',"
+            if (isMobileBrowser(navigator.userAgent || navigator.vendor || window.opera)) {
+                var param_array = get_param_array();
+                
+                if (!('mobile' in param_array)) {
+                    param_array['mobile'] = 'on';
+                    window.location.replace(get_base_uri() + build_query_string(param_array));
+                }
+            }
+        ", CClientScript::POS_READY);
+        
         $itemsArray = array(
             array('label'=>'Home', 'url'=>array('/site/index')),
         );
         
         if (Yii::app()->user->isGuest) {
-            $itemsArray[] = array(
-                array('label'=>'Login', 'url'=>array('/site/login')),
-            );
+            $itemsArray[] = array('label'=>'Login', 'url'=>array('/site/login'));
         } else {
-            $itemsArray[] = array(
-                array('label'=>'Comic Books', 'url'=>array('/book'), 'items'=>array(
-                    array('label'=>'Publishers', 'url'=>array('/publisher')),
-                    )
-                ),
-                array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout')),
+            $itemsArray[] = array('label'=>'Comic Books', 'url'=>array('/book'), 'items'=>array(
+                array('label'=>'Publishers', 'url'=>array('/publisher')),
+                )
             );
+            $itemsArray[] = array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'));
         }
             $this->widget('zii.widgets.CMenu', array(
                 'activeCssClass'=>'active',

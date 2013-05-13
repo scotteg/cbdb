@@ -20,6 +20,12 @@
 		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>256)); ?>
 		<?php echo $form->error($model,'title'); ?>
 	</div>
+    
+    <div class='row'>
+        <?php echo $form->labelEx($model, 'issue_number'); ?>
+        <?php echo $form->textField($model, 'issue_number', array('size'=>20, 'maxlength'=>10)); ?>
+        <?php echo $form->error($model, 'issue_number'); ?>
+    </div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'type_id'); ?>

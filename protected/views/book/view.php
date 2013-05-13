@@ -23,6 +23,7 @@ $this->menu=array(
 	'attributes'=>array(
 		'id',
 		'title',
+        'issue_number',
 		'type_id',
 		'publication_date',
 		'value',
