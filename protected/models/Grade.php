@@ -87,4 +87,9 @@ class Grade extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+    
+    public function getGradeOptions()
+    {
+        return CHtml::listData(Grade::model()->findAll(), 'id', 'name');
+    }
 }

@@ -1,5 +1,8 @@
 <?php
 
+// Uncomment to enable PHPUnit Skeleton Generator
+//require_once dirname(__FILE__).'/../../../../yii-1-1-13/yii.php';
+
 /**
  * This is the model class for table "type".
  *
@@ -87,4 +90,9 @@ class Type extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+    
+    public function getTypeOptions()
+    {
+        return CHtml::listData(Type::model()->findAll(), 'id', 'name');
+    }
 }

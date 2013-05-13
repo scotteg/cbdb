@@ -27,15 +27,30 @@
 	</div><!-- header -->
 
 	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		)); ?>
+        <?php
+        $itemsArray = array(
+            array('label'=>'Home', 'url'=>array('/site/index')),
+        );
+        
+        if (Yii::app()->user->isGuest) {
+            $itemsArray[] = array(
+                array('label'=>'Login', 'url'=>array('/site/login')),
+            );
+        } else {
+            $itemsArray[] = array(
+                array('label'=>'Comic Books', 'url'=>array('/book'), 'items'=>array(
+                    array('label'=>'Publishers', 'url'=>array('/publisher')),
+                    )
+                ),
+                array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout')),
+            );
+        }
+            $this->widget('zii.widgets.CMenu', array(
+                'activeCssClass'=>'active',
+                'activateParents'=>true,
+                'items'=>$itemsArray,
+            ));
+        ?>
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(

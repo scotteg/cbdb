@@ -49,35 +49,58 @@ body
 
 #mainmenu
 {
-	background:white url(bg.gif) repeat-x left top;
+    background: white url(bg.gif) repeat-x left top;
 }
 
 #mainmenu ul
 {
-	padding:6px 20px 5px 20px;
-	margin:0px;
+    padding: 6px 20px 5px 20px;
+    list-style: none;
+    margin: 0;
+    position: relative;
+    height: 19px;
 }
 
 #mainmenu ul li
 {
-	display: inline;
+    display: block;
+    height: 28px;
+    float: left;
+    overflow: visible;
+    position: relative;
 }
 
 #mainmenu ul li a
 {
-	color:#ffffff;
-	background-color:transparent;
-	font-size:12px;
-	font-weight:bold;
-	text-decoration:none;
-	padding:5px 8px;
+    float: left;
+    display: block;
+    color: #fff;
+    background-color: transparent;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 8px;
 }
 
-#mainmenu ul li a:hover, #mainmenu ul li.active a
+#mainmenu li ul
 {
-	color: #6399cd;
-	background-color:#EFF4FA;
-	text-decoration:none;
+    position: absolute;
+    top: 24px;
+    left: 10px;
+}
+
+#mainmenu li ul li
+{
+    display: none;
+}
+
+#mainmenu .active a, #mainmenu li:hover > a,
+#mainmenu li:hover > ul li
+{
+    display: block;
+    color: #6399cd;
+    background-color: #fff;
+    text-decoration: none;
 }
 
 div.flash-error, div.flash-notice, div.flash-success
